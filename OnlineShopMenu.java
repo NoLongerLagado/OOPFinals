@@ -10,8 +10,8 @@ import java.io.IOException;
 
 public class OnlineShopMenu extends JFrame {
 
-	private String clothingName;
-    private int clothingPrice;
+	private String[] clothingName;
+    private int[] clothingPrice;
     private JLabel titleLabel;
     private JButton[] categoryButtons;
     private String[] categoryNames = {
@@ -25,16 +25,16 @@ public class OnlineShopMenu extends JFrame {
             "Back to Homepage"
     };
     
-    public String getClothingName() {
+    public String[] getClothingName() {
         return clothingName;
     }
-    public void setClothingName(String clothingName) {
+    public void setClothingName(String[] clothingName) {
         this.clothingName = clothingName;
     }
-    public int getClothingPrice() {
+    public int[] getClothingPrice() {
         return clothingPrice;
     }
-    public void setClothingPrice(int clothingPrice) {
+    public void setClothingPrice(int[] clothingPrice) {
         this.clothingPrice = clothingPrice;
     }
     

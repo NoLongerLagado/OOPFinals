@@ -24,7 +24,7 @@ public class shoppingCart extends JFrame implements ActionListener {
         setTitle("SHOPPING CART");
         setSize(800, 600);
         Image icon = Toolkit.getDefaultToolkit().getImage("C:\\Downloads\\olshoppinglogo.png");    
-       setIconImage(icon); 
+        setIconImage(icon); 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
         setLocationRelativeTo(null);
@@ -32,12 +32,13 @@ public class shoppingCart extends JFrame implements ActionListener {
         mainPanel = new JPanel();
         mainPanel.setBorder(BorderFactory.createEmptyBorder(40, 40, 40, 40));
         mainPanel.setLayout(new GridLayout(1, 2));
+        mainPanel.setBackground(new java.awt.Color(204, 204, 204));
 
         JLabel titleLabel = new JLabel("SHOPPING CART");
-        titleLabel.setFont(new Font("Times New Roman", Font.BOLD, 25));
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 25));
         titleLabel.setHorizontalAlignment(JLabel.CENTER);
         titleLabel.setBorder(BorderFactory.createEmptyBorder(20, 25, 0, 0));
-        add(titleLabel, BorderLayout.WEST);
+        add(titleLabel, BorderLayout.NORTH);
 
         itemPanel = new JPanel();
         itemPanel.setBorder(BorderFactory.createTitledBorder(
@@ -118,7 +119,7 @@ public class shoppingCart extends JFrame implements ActionListener {
             }
         });
 
-        btnTotal = new JButton("Total");
+        btnTotal = new JButton("TOTAL");
         btnTotal.setFont(new Font("Arial", Font.BOLD, 13));
         btnTotal.addActionListener(new ActionListener() {
             @Override
@@ -129,7 +130,7 @@ public class shoppingCart extends JFrame implements ActionListener {
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
-        buttonPanel.setBackground(Color.WHITE);
+        buttonPanel.setBackground(new java.awt.Color(102, 102, 0));
         buttonPanel.setBorder(new EmptyBorder(10, 0, 10, 0));
         buttonPanel.add(btnBackToHp);
         buttonPanel.add(btnCheckOut);
@@ -210,24 +211,64 @@ public void actionPerformed(ActionEvent e) {
         String[] items = itemTextArea.getText().split("\n");
         String[] prices = priceTextArea.getText().split("\n");
         int selectedIdx = -1;
+    
         for (int i = 0; i < items.length; i++) {
             if (items[i].equals(selectedText)) {
                 selectedIdx = i;
                 break;
             }
         }
-        
+    
         // If a valid item is selected, proceed to CheckOut
         if (selectedIdx != -1) {
             String selectedClothingName = items[selectedIdx];
             int selectedClothingPrice = Integer.parseInt(prices[selectedIdx]);
-            
+    
             // Create an instance of the CheckOut class and pass the clothing details
             CheckOut checkOutFrame = new CheckOut(selectedClothingName, selectedClothingPrice);
+    
+            // Remove the selected item and price from the text areas
+            items[selectedIdx] = "";
+            prices[selectedIdx] = "";
+    
+            // Update the text areas with the new content
+            StringBuilder updatedItems = new StringBuilder();
+            StringBuilder updatedPrices = new StringBuilder();
+            for (int i = 0; i < items.length; i++) {
+                if (!items[i].isEmpty()) {
+                    updatedItems.append(items[i]);
+                    updatedPrices.append(prices[i]);
+                    if (i < items.length - 1) {
+                        updatedItems.append("\n");
+                        updatedPrices.append("\n");
+                    }
+                }
+            }
+    
+            // Set the updated content back to the text areas
+            itemTextArea.setText(updatedItems.toString());
+            priceTextArea.setText(updatedPrices.toString());
+    
+            // Save the updated items and prices to a file
+            try {
+                BufferedWriter writer = new BufferedWriter(new FileWriter("cart.txt"));
+                for (int i = 0; i < updatedItems.length(); i++) {
+                    // Using "tab" as a delimiter between item and price when writing to the file
+                    writer.write(updatedItems.toString().split("\n")[i] + ":" + updatedPrices.toString().split("\n")[i]);
+                    writer.newLine();
+                }
+                writer.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+    
             dispose(); // Close the shoppingCart frame
         } else {
             JOptionPane.showMessageDialog(this, "Please highlight the item to select from the cart.", "Error", JOptionPane.ERROR_MESSAGE);
         }
+    
+    
+
     } else if (e.getSource() == btnBackToHp) {
         dispose();
         new Homepage().setVisible(true); // Show the Homepage window
