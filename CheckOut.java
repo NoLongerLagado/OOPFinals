@@ -264,7 +264,7 @@ public class CheckOut extends JFrame implements ActionListener {
 
 
 
-  @Override
+ @Override
 public void actionPerformed(ActionEvent e) {
     if (e.getSource() == back) {
         dispose();
@@ -297,11 +297,12 @@ public void actionPerformed(ActionEvent e) {
             } catch (IOException ex) {
                 ex.printStackTrace(); // Handle or log the exception appropriately
             }
-        }
+            
+            // After saving the order details and writing to the file, show the success message
+            JOptionPane.showMessageDialog(CheckOut.this, "Thank you for purchasing our product!", "Payment", JOptionPane.PLAIN_MESSAGE);
             dispose();
             new Homepage();
-            JOptionPane.showMessageDialog(CheckOut.this, "Thank you for purchasing our product!",
-                    "Payment", JOptionPane.PLAIN_MESSAGE);
         }
     }
+}
 }
