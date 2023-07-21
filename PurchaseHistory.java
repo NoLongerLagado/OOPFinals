@@ -19,9 +19,6 @@ import java.io.BufferedWriter;
 
 
 public class PurchaseHistory extends JFrame implements ActionListener{
-    
-//  private JPanel purchasePanel;
-//    private JTextArea purchaseTextArea;
     private JButton btnHomepage;
      private JPanel btnpanel, historypanel ;
      private JTextArea txthistory; 
@@ -31,7 +28,6 @@ public class PurchaseHistory extends JFrame implements ActionListener{
      
     public PurchaseHistory() {
         
-        //    purchaseHistory = new ArrayList<>();
            
         setTitle("PURCHASE HISTORY");
         setSize(400, 600);
@@ -52,8 +48,6 @@ public class PurchaseHistory extends JFrame implements ActionListener{
         btnHomepage.setFont(new Font("Arial", Font.BOLD, 13));
         btnHomepage.setBackground(Color.PINK);
         btnHomepage.addActionListener(this);
-       // btnHomepage.setBounds(0, 0, 0, 0);
-       // add(btnHomepage, BorderLayout.SOUTH);
        
        
          
