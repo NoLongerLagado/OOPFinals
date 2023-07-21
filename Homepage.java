@@ -78,6 +78,7 @@ public class Homepage extends JFrame implements ActionListener {
         purhis.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         purhis.setForeground(new java.awt.Color(255, 255, 255));
         purhis.setLabel("Purchase History");
+        purhis.addActionListener(this);
 
         exit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         exit.setLabel("Exit");
@@ -146,7 +147,7 @@ public class Homepage extends JFrame implements ActionListener {
         }
         else if(e.getSource() == purhis){
             dispose();
-//            new paymenthistory();
+         new PurchaseHistory();
         }
     }
 }

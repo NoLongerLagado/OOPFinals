@@ -6,6 +6,9 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
@@ -259,6 +262,8 @@ public class CheckOut extends JFrame implements ActionListener {
         }
 }
 
+
+
   @Override
 public void actionPerformed(ActionEvent e) {
     if (e.getSource() == back) {
@@ -275,11 +280,28 @@ public void actionPerformed(ActionEvent e) {
         } else {
             // All fields are filled and txtmobile contains exactly 11 digits, place the order
             SqlDatabase(); // Call the method to save the order details to the database (text file)
+            // Write the items and prices to a text file
+            String fileName = "OrderDetails.txt";
+
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+                // Write the selected clothing information to the file
+                writer.write(clothingName + "\t\t" + clothingPrice);
+                writer.newLine();
+
+                // Optionally, you can write more information if needed
+                // writer.write("More information...");
+                // writer.newLine();
+
+                // Flush and close the writer
+                writer.flush();
+            } catch (IOException ex) {
+                ex.printStackTrace(); // Handle or log the exception appropriately
+            }
+        }
             dispose();
             new Homepage();
             JOptionPane.showMessageDialog(CheckOut.this, "Thank you for purchasing our product!",
                     "Payment", JOptionPane.PLAIN_MESSAGE);
         }
     }
-}
 }

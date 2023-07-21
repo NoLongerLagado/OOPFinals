@@ -1,0 +1,3 @@
+Since we use a different platform and it is XAMPP Control Panel, so here's the link of our local database
+
+http://localhost/phpmyadmin/index.php?route=/sql&db=onlineshopping&table=olshop&pos=0
